@@ -1,0 +1,14 @@
+installa angular fire:
+
+>> npm i @angular/fire@16.0.0
+
+
+sweet alert:
+
+>> npm install sweetalert2
+
+temas sweet aler:
+
+>> npm install --save sweetalert2 @sweetalert2/theme-bootstrap-4
+
+@import '@sweetalert2/theme-bootstrap-4/bootstrap-4.scss';  importar en el style.scss
