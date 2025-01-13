@@ -1,14 +1,13 @@
-installa angular fire:
+instalar conexion de angular con firebase:
 
->> npm i @angular/fire@16.0.0
+    >> npm i @angular/fire@16.0.0
 
+sweet alert para angular:
 
-sweet alert:
+    >> npm install sweetalert2 @sweetalert2/ngx-sweetalert2
 
->> npm install sweetalert2
+agregar sweet alert en app module:
 
-temas sweet aler:
+    import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
->> npm install --save sweetalert2 @sweetalert2/theme-bootstrap-4
-
-@import '@sweetalert2/theme-bootstrap-4/bootstrap-4.scss';  importar en el style.scss
+    imports: [ SweetAlert2Module.forRoot() ]
