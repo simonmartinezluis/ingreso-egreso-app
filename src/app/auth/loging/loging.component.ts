@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/services/auth.service';
+import Swal from 'sweetalert2'
   
 
 @Component({
@@ -30,11 +31,11 @@ export class LogingComponent implements OnInit {
       this.authService.loginWithFirebase(email, password)
         .then(() => this.router.navigate(['/']))
         .catch(error => {
-          // Swal.fire({
-          //   icon: "error",
-          //   title: "Oops...",
-          //   text: error.message
-          // });
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: error.message
+          });
         })
     }
   }
