@@ -26,8 +26,6 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 //environments
 import { environment } from 'src/environments/environment.development';
 
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +47,6 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
-    SweetAlert2Module.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

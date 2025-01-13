@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { AuthService } from 'src/services/auth.service';
+import Swal from 'sweetalert2'
 
 
 @Component({
@@ -13,8 +13,6 @@ import { AuthService } from 'src/services/auth.service';
 export class LogingComponent implements OnInit {
 
   loginFormGroup: FormGroup;
-  @ViewChild('modalErrorSwal') public readonly modalErrorSwal!: SwalComponent;
-  errorMessage!: string;
 
   constructor(private readonly formBuilder: FormBuilder, private readonly authService: AuthService, private readonly router: Router, private readonly cdr: ChangeDetectorRef) {
     this.loginFormGroup = this.formBuilder.group({});
@@ -29,14 +27,24 @@ export class LogingComponent implements OnInit {
 
   login() {
     if (this.loginFormGroup.valid) {
+      Swal.fire({
+        title: 'Espere por favor',
+        didOpen: () => { Swal.showLoading() }
+      });
       const { email, password } = this.loginFormGroup.value;
       this.authService.loginWithFirebase(email, password)
-        .then(() => this.router.navigate(['/']))
-        .catch(error => {
-          this.errorMessage = error.message;
-          this.cdr.detectChanges();
-          this.modalErrorSwal.fire();
+        .then(() => {
+          Swal.close();
+          this.router.navigate(['/']);
         })
+        .catch(error => {
+          Swal.close();
+          Swal.fire({
+            title: 'Error',
+            icon: 'error',
+            text: error.message
+          });
+        });
     }
   }
 }

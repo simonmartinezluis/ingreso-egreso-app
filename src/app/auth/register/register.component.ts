@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { AuthService } from 'src/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +12,6 @@ import { AuthService } from 'src/services/auth.service';
 export class RegisterComponent implements OnInit {
 
   registerFormGroup: FormGroup;
-  @ViewChild('modalErrorSwal') public readonly modalErrorSwal!: SwalComponent;
   errorMessage!: string;
 
   constructor(private readonly formBuilder: FormBuilder, private readonly authService: AuthService, private readonly router: Router, private readonly cdr: ChangeDetectorRef) {
@@ -28,14 +27,25 @@ export class RegisterComponent implements OnInit {
   }
 
   createUser() {
-    if (this.registerFormGroup.invalid) { return; }
-    const { nombre, correo, password } = this.registerFormGroup.value;
-    this.authService.createUserInFirebase(nombre, correo, password)
-      .then(response => { this.router.navigate(['/']) })
-      .catch(error => {
-        this.errorMessage = error.message;
-        this.cdr.detectChanges();
-        this.modalErrorSwal.fire();
+    if (this.registerFormGroup.valid) {
+      const { nombre, correo, password } = this.registerFormGroup.value;
+      Swal.fire({
+        title: 'Espere por favor',
+        didOpen: () => { Swal.showLoading() }
       });
+      this.authService.createUserInFirebase(nombre, correo, password)
+        .then(() => {
+          Swal.close();
+          this.router.navigate(['/']);
+        })
+        .catch(error => {
+          Swal.close();
+          Swal.fire({
+            title: 'Error',
+            icon: 'error',
+            text: error.message
+          });
+        });
+    }
   }
 }
