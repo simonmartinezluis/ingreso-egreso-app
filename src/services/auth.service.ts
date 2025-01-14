@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AuthService {
 
   initAuthListener() {
     this.authFireBase.authState.subscribe(userState => {
-      console.log(userState);
+      console.log('sesion state:',userState);
     });
   }
 
@@ -24,5 +25,11 @@ export class AuthService {
 
   logout() {
     return this.authFireBase.signOut();
+  }
+
+  isAuth() {
+    return this.authFireBase.authState.pipe(
+      map(firebaseUser => firebaseUser != null)
+    )
   }
 }
