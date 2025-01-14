@@ -15,4 +15,8 @@ export class AuthService {
   loginWithFirebase(email: string, password: string) {
     return this.authFireBase.signInWithEmailAndPassword(email, password);
   }
+
+  logout(){
+    return this.authFireBase.signOut();
+  }
 }
