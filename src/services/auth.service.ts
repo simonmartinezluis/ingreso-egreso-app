@@ -8,6 +8,12 @@ export class AuthService {
 
   constructor(public authFireBase: AngularFireAuth) { }
 
+  initAuthListener() {
+    this.authFireBase.authState.subscribe(userState => {
+      console.log(userState);
+    });
+  }
+
   createUserInFirebase(nombre: string, email: string, password: string) {
     return this.authFireBase.createUserWithEmailAndPassword(email, password);
   }
@@ -16,7 +22,7 @@ export class AuthService {
     return this.authFireBase.signInWithEmailAndPassword(email, password);
   }
 
-  logout(){
+  logout() {
     return this.authFireBase.signOut();
   }
 }
