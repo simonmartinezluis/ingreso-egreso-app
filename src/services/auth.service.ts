@@ -32,7 +32,7 @@ export class AuthService {
     }
   }
 
-  loginWithFirebase(email: string, password: string) {
+  loginFirebase(email: string, password: string) {
     return this.authFireBase.signInWithEmailAndPassword(email, password);
   }
 

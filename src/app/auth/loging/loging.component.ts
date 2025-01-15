@@ -30,7 +30,7 @@ export class LogingComponent implements OnInit {
       if (this.loginFormGroup.valid) {
         Swal.fire({ title: 'Espere por favor', didOpen: () => { Swal.showLoading() } });
         const { email, password } = this.loginFormGroup.value;
-        await this.authService.loginWithFirebase(email, password);
+        await this.authService.loginFirebase(email, password);
         Swal.close();
         this.router.navigate(['/']);
       }
