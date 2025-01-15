@@ -25,26 +25,19 @@ export class LogingComponent implements OnInit {
     })
   }
 
-  login() {
-    if (this.loginFormGroup.valid) {
-      Swal.fire({
-        title: 'Espere por favor',
-        didOpen: () => { Swal.showLoading() }
-      });
-      const { email, password } = this.loginFormGroup.value;
-      this.authService.loginWithFirebase(email, password)
-        .then(() => {
-          Swal.close();
-          this.router.navigate(['/']);
-        })
-        .catch(error => {
-          Swal.close();
-          Swal.fire({
-            title: 'Error',
-            icon: 'error',
-            text: error.message
-          });
-        });
+  async login() {
+    try {
+      if (this.loginFormGroup.valid) {
+        Swal.fire({ title: 'Espere por favor', didOpen: () => { Swal.showLoading() } });
+        const { email, password } = this.loginFormGroup.value;
+        await this.authService.loginWithFirebase(email, password);
+        Swal.close();
+        this.router.navigate(['/']);
+      }
+    } catch (error: any) {
+      Swal.close();
+      Swal.fire({ title: 'Error', icon: 'error', text: error.message });
     }
   }
 }
+

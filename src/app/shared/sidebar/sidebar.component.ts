@@ -14,23 +14,14 @@ export class SidebarComponent {
 
   }
 
-  logout() {
-    Swal.fire({
-      title: 'Cerrando Sesión',
-      didOpen: () => { Swal.showLoading() }
-    });
-    this.authService.logout()
-      .then(() => {
-        Swal.close();
-        this.router.navigate(['/login']);
-      })
-      .catch((error) => {
-        Swal.close();
-        Swal.fire({
-          title: 'Error',
-          icon: 'error',
-          text: error.message
-        });
-      })
+  async logout() {
+    try {
+      Swal.fire({ title: 'Cerrando Sesión', didOpen: () => { Swal.showLoading() } });
+      await this.authService.logoutFirebase();
+      this.router.navigate(['/login']);
+    } catch (error: any) {
+      Swal.close();
+      Swal.fire({ title: 'Error', icon: 'error', text: error.message });
+    }
   }
 }
