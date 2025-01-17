@@ -2,7 +2,7 @@ instalar conexion de angular con firebase:
 
     >> npm i @angular/fire@16.0.0
 
-sweet alert para angular:
+instalar sweet alert para angular:
 
     >> npm install sweetalert2 @sweetalert2/ngx-sweetalert2
 
@@ -11,3 +11,11 @@ agregar sweet alert en app module:
     import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
     imports: [ SweetAlert2Module.forRoot() ]
+
+instalar ngrx/store:
+
+    >> npm install @ngrx/store --save
+
+instalar ngrx/store-devtools:
+
+    >> npm install @ngrx/store-devtools@16 --save

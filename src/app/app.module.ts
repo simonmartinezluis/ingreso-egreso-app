@@ -26,6 +26,12 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 //environments
 import { environment } from 'src/environments/environment.development';
 
+//ng-rx
+import { StoreModule } from '@ngrx/store';
+import { AppReducers } from './app.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +53,8 @@ import { environment } from 'src/environments/environment.development';
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
+    StoreModule.forRoot(AppReducers),
+    StoreDevtoolsModule.instrument({ maxAge: 24, logOnly: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]

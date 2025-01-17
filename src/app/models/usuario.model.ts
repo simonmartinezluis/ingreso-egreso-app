@@ -8,4 +8,9 @@ export class UserModel {
         this.email = _email;
     }
 
+
+    static fromFireBase(userFireBase: any) {
+        return new UserModel(userFireBase.uid, userFireBase.nombre, userFireBase.email);
+    }
+
 }
